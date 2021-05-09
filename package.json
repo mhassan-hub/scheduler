@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.6",
+    "fsevents": "^2.3.2",
+    "node-sass": "^4.14.1",
     "normalize.css": "^8.0.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -37,14 +39,15 @@
     "@storybook/addons": "^5.0.10",
     "@storybook/react": "^5.0.10",
     "@testing-library/jest-dom": "^4.0.0",
-    "@testing-library/react": "^8.0.7",
-    "babel-loader": "^8.0.5",
-    "node-sass": "^4.14.0"
+    "@testing-library/react": "^8.0.7"
   },
   "jest": {
     "watchPathIgnorePatterns": [
       "<rootDir>/node_modules/",
       "<rootDir>/.git/"
     ]
+  },
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
   }
 }
