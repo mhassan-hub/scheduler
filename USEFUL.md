@@ -55,6 +55,13 @@ https://s3-us-west-2.amazonaws.com/reactv2/figures/e77d6027-1179-45b0-b73a-2d00c
 
 - State:
 - Props:
+
+    - id:number - the id of the interviewer
+    - name:string - the name of the interviewer
+    - avatar:url - a url to an image of the interviewer
+    - selected:boolean - to determine if an interview is selected or not
+    - setInterviewer:function - sets the interviewer upon selection
+    
 - Used by:
 
 ### Appointment
