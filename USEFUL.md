@@ -49,6 +49,9 @@ https://s3-us-west-2.amazonaws.com/reactv2/figures/e77d6027-1179-45b0-b73a-2d00c
 
 - State:
 - Props:
+    - interviewers:array - an array of objects containing the information  of each interviewer
+    - interviewer:number - the id of an interviewer
+    - setInterviewer:function - a function that accepts an interviewer id
 - Used by:
 
 ### InterviewerListItem
