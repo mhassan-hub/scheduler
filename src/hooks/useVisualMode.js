@@ -8,7 +8,7 @@ export default function useVisualMode (initialMode) {
   const transition = (newMode, replace = false) => {
     //if replace is true remove the last state
     if (replace) {
-      history.pop();
+      setHistory((prev) => [...prev.slice(0, -1), newMode])
     }
     // set history to previous history array and add the newMode
     setHistory(prev => [...prev, newMode])
