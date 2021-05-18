@@ -5,40 +5,7 @@ export default function useApplicationData () {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: [
-      {
-        id: 1,
-        time: "12pm",
-      },
-      {
-        id: 2,
-        time: "1pm",
-        interview: {
-          student: "Lydia Miller-Jones",
-          interviewer: {
-            id: 1,
-            name: "Sylvia Palmer",
-            avatar: "https://i.imgur.com/LpaY82x.png",
-          }
-        }
-      },
-      {
-        id: 3,
-        time: "3pm",
-        interview: {
-          student: "Jonesy",
-          interviewer: {
-            id: 3, 
-            name: "Mildred Nazir", 
-            avatar: "https://i.imgur.com/T2WwVfS.png"
-          }
-        }
-      },
-      {
-        id:4,
-        time: '4pm'
-      }
-    ],
+    appointments: [],
     interviewers: {}
   });
   const setDay = (day) => setState({ ...state, day });
@@ -51,7 +18,7 @@ export default function useApplicationData () {
       axios.get('/api/appointments'),
       axios.get('/api/interviewers'),
     ]).then((all) => {
-
+      
       // change state within our days, appointments and interviewers 
       // based on information we get back from the API
       setState(prev => (
@@ -79,11 +46,13 @@ export default function useApplicationData () {
         ...state.appointments,
         [id]: appointment
       };
+      const updatedState = updateSpots(state)
       setState({
-        ...state,
+        ...updatedState,
         appointments
       });
 
+      // setDay to decrease spots remaining and display the proper amount on booking the appointment
     });
   }
 
@@ -101,10 +70,16 @@ export default function useApplicationData () {
         ...state.appointments,
         [id]: appointment
       };
+
+      const updatedDays = updateSpots(state.day, state.days, appointments);
+      
       setState({
         ...state,
-        appointments
+        appointments,
+        days: updatedDays
       });
+      console.log(state.days);
+      // setDay to increase spots remaining and display the proper amount on booking the appointment
     });
   }
   return {
@@ -114,3 +89,27 @@ export default function useApplicationData () {
     deleteInterview
   };
 }
+
+function updateSpots (dayName, days, updatedAppointments) {
+  
+  const specificDay = days.find((day) => day.name === dayName);
+  // getting the index of the specific day
+  const specificDayIndex = days.findIndex((day) => day.name === dayName);
+  // array of appointment ids
+  const dayAppointments = specificDay.appointments; 
+  
+  // filter the day appointments by checking the appointment object for id's that contain interview = null and getting the length of the result to check how many spots are left.
+  const spots = dayAppointments.filter(apptId => updatedAppointments[apptId].interview === null).length;
+  console.log(spots);
+  // console.log(updatedAppointments);
+
+  // creating a copy of specific day and adding the new spots remaining
+  const updatedDay = {...specificDay, spots};
+
+  // 
+  const updatedDays = [...days];
+  updatedDays[specificDayIndex] = updatedDay;
+  // your code goes here
+  console.log(updatedDays);
+  return updatedDays;
+};
