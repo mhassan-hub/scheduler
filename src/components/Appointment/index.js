@@ -38,7 +38,9 @@ export default function Appointment (props) {
     };
     bookInterview(id, interview)
     .then(() => {transition(SHOW)})
-    .catch((error) => transition(ERROR_SAVE, true));
+    .catch((error) => {
+      console.error(error)
+      transition(ERROR_SAVE, true)});
   }
 
   function deleteAppointment () {
@@ -50,7 +52,7 @@ export default function Appointment (props) {
   }
   return (
     
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header time={time}/>
 
       {/* VISUAL MODES */}

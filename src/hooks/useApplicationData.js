@@ -35,7 +35,7 @@ export default function useApplicationData () {
   function bookInterview(id, interview) {
 
     return axios.put(`/api/appointments/${id}`, {interview})
-    .then(interviewObj => {
+    .then(() => {
       
       const appointment = {
         ...state.appointments[id],
@@ -46,9 +46,11 @@ export default function useApplicationData () {
         ...state.appointments,
         [id]: appointment
       };
-      const updatedState = updateSpots(state)
+      const updatedDays = updateSpots(state.day, state.days, appointments)
+
       setState({
-        ...updatedState,
+        ...state,
+        days: updatedDays,
         appointments
       });
 
@@ -78,7 +80,6 @@ export default function useApplicationData () {
         appointments,
         days: updatedDays
       });
-      console.log(state.days);
       // setDay to increase spots remaining and display the proper amount on booking the appointment
     });
   }
@@ -100,16 +101,12 @@ function updateSpots (dayName, days, updatedAppointments) {
   
   // filter the day appointments by checking the appointment object for id's that contain interview = null and getting the length of the result to check how many spots are left.
   const spots = dayAppointments.filter(apptId => updatedAppointments[apptId].interview === null).length;
-  console.log(spots);
-  // console.log(updatedAppointments);
 
   // creating a copy of specific day and adding the new spots remaining
   const updatedDay = {...specificDay, spots};
 
-  // 
   const updatedDays = [...days];
   updatedDays[specificDayIndex] = updatedDay;
-  // your code goes here
-  console.log(updatedDays);
+  
   return updatedDays;
 };
