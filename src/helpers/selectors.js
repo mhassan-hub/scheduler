@@ -1,7 +1,5 @@
-
-
-export function getAppointmentsForDay (state, day){
-  const { days, appointments } = state; 
+export function getAppointmentsForDay(state, day) {
+  const { days, appointments } = state;
   const findDays = days.find((dayArr) => dayArr.name === day);
 
   if (!findDays || findDays.appointments.length === 0) {
@@ -9,20 +7,24 @@ export function getAppointmentsForDay (state, day){
   }
   const interviewerArr = findDays.appointments;
 
-  const appointmentsPerDay = interviewerArr.map((appointmentId) => appointments[appointmentId]);
+  const appointmentsPerDay = interviewerArr.map(
+    (appointmentId) => appointments[appointmentId]
+  );
 
   return appointmentsPerDay;
 }
 
-export function getInterview (state, interview){
-  const  {interviewers} = state
-  let interviewerData= {};
+export function getInterview(state, interview) {
+  const { interviewers } = state;
+  let interviewerData = {};
   let interviewId = interview ? interview.interviewer : null;
-  
-  if(interviewId){
-    
-    interviewerData={...interviewers[interviewId]}
-    const interviewObj = {interviewer: interviewerData, student:interview.student}
+
+  if (interviewId) {
+    interviewerData = { ...interviewers[interviewId] };
+    const interviewObj = {
+      interviewer: interviewerData,
+      student: interview.student,
+    };
 
     return interviewObj;
   }
@@ -30,8 +32,8 @@ export function getInterview (state, interview){
   return null;
 }
 
-export function getInterviewersForDay (state, day){
-  const { days, appointments, interviewers } = state; 
+export function getInterviewersForDay(state, day) {
+  const { days, appointments, interviewers } = state;
 
   const findDays = days.find((dayArr) => dayArr.name === day);
 
@@ -40,7 +42,9 @@ export function getInterviewersForDay (state, day){
   }
   const interviewerArr = findDays.interviewers;
 
-  const interviewersPerDay = interviewerArr.map((interviewerId) => interviewers[interviewerId]);
+  const interviewersPerDay = interviewerArr.map(
+    (interviewerId) => interviewers[interviewerId]
+  );
 
   return interviewersPerDay;
 }
