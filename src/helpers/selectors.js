@@ -33,7 +33,7 @@ export function getInterview(state, interview) {
 }
 
 export function getInterviewersForDay(state, day) {
-  const { days, appointments, interviewers } = state;
+  const { days, interviewers } = state;
 
   const findDays = days.find((dayArr) => dayArr.name === day);
 
